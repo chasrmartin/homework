@@ -1,0 +1,3 @@
+Manifest-Version: 0.1
+Created-By: Charlie Martin
+Main-Class: com.chasrmartin.m1.CoinOps.CoinOps

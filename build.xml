@@ -1,0 +1,58 @@
+<project name="CoinOps" default="dist" basedir=".">
+  <description>
+    Ant build for CoinOps example
+  </description>
+  <!-- set global properties for this build -->
+  <property name="src" location="src"/>
+  <property name="build" location="build"/>
+  <property name="dist" location="dist"/>
+  <property name="package" value="com.chasrmartin.m1.CoinOps"/>
+
+  <target name="init">
+    <!-- Create the time stamp -->
+    <tstamp/>
+    <!-- Create the build directory structure used by compile -->
+    <mkdir dir="${build}"/>
+    <mkdir dir="${dist}" />
+  </target>
+
+  <target name="compile"
+          depends="init"
+          description="compile the source">
+    <!-- Compile the java code from ${src} into ${build} -->
+    <javac
+        includeantruntime="false"
+        srcdir="${src}"
+        destdir="${build}"/>
+  </target>
+
+  <target name="dist" depends="compile"
+          description="generate the distribution">
+    <!-- Create the distribution directory -->
+    <mkdir dir="${dist}"/>
+
+    <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+    <jar jarfile="${dist}/CoinOps-${DSTAMP}.jar"
+         manifest="${src}/manifest.mf"
+         basedir="${build}"/>
+  </target>
+
+  <target name="run"
+          depends="dist"
+          description="run the program in a separate VM">
+    <java jar="${dist}/CoinOps-${DSTAMP}.jar"
+          fork="true"/>
+  </target>
+
+  <target name="clean"
+        description="clean up">
+    <!-- Delete the ${build} and ${dist} directory trees -->
+    <delete dir="${build}"/>
+    <delete dir="${dist}"/>
+  </target>
+</project>
+<!--
+    Local Variables:
+    compile-command: "ant -emacs -find build.xml"
+    End:
+-->
